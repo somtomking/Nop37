@@ -14,7 +14,7 @@ namespace Nop.Core.Tests
             var result = CommonHelper.IsValidEmail(email);
             result.ShouldEqual(true);
         }
-
+            
         [Test]
         public void When_the_text_is_a_valid_email_address_including_plus_validator_should_pass()
         {
