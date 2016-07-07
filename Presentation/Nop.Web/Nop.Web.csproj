@@ -224,6 +224,7 @@
     <Compile Include="Controllers\BasePublicController.cs" />
     <Compile Include="Controllers\BoardsController.cs" />
     <Compile Include="Controllers\BackInStockSubscriptionController.cs" />
+    <Compile Include="Controllers\HotelController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
@@ -326,6 +327,7 @@
     <Compile Include="Models\Common\StoreThemeModel.cs" />
     <Compile Include="Models\Common\LanguageSelectorModel.cs" />
     <Compile Include="Models\Common\SitemapModel.cs" />
+    <Compile Include="Models\Hotel\HotelSearchModel.cs" />
     <Compile Include="Models\Vendors\ApplyVendorModel.cs" />
     <Compile Include="Models\Customer\CustomerAttributeModel.cs" />
     <Compile Include="Models\Catalog\CustomerBackInStockSubscriptionsModel.cs" />
@@ -1978,6 +1980,47 @@
     <Content Include="Scripts\public.onepagecheckout.js" />
     <Content Include="Scripts\public.common.js" />
     <Content Include="Themes\DefaultClean\Content\css\print.css" />
+    <Content Include="Themes\Weixin\Content\weui\example\example.css" />
+    <Content Include="Themes\Weixin\Content\weui\example\example.js" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\icon_nav_actionSheet.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\icon_nav_article.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\icon_nav_button.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\icon_nav_cell.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\icon_nav_dialog.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\icon_nav_icons.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\icon_nav_msg.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\icon_nav_panel.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\icon_nav_progress.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\icon_nav_search_bar.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\icon_nav_tab.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\icon_nav_toast.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\pic_article.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\pic_article_1.jpg" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\pic_article_2.jpg" />
+    <Content Include="Themes\Weixin\Content\weui\example\images\vcode.jpg" />
+    <Content Include="Themes\Weixin\Content\weui\example\index.html" />
+    <Content Include="Themes\Weixin\Content\weui\example\router.min.js" />
+    <Content Include="Themes\Weixin\Content\weui\example\snapshot\actionSheet.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\snapshot\button.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\snapshot\cell.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\snapshot\dialog1.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\snapshot\dialog2.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\snapshot\grid.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\snapshot\icons.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\snapshot\progress.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\snapshot\qrcode.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\snapshot\result.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\snapshot\text.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\snapshot\toast1.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\snapshot\toast2.png" />
+    <Content Include="Themes\Weixin\Content\weui\example\zepto.min.js" />
+    <Content Include="Themes\Weixin\Content\weui\style\weui.css" />
+    <Content Include="Themes\Weixin\Content\weui\style\weui.min.css" />
+    <Content Include="Themes\Weixin\preview.jpg" />
+    <Content Include="Themes\Weixin\Scripts\zepto.js" />
+    <Content Include="Themes\Weixin\Scripts\zepto.mdatetimer.css" />
+    <Content Include="Themes\Weixin\Scripts\zepto.mdatetimer.js" />
+    <Content Include="Themes\Weixin\Scripts\zepto.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2030,6 +2073,13 @@
     <Content Include="Views\Catalog\_CatalogSelectors.cshtml" />
     <Content Include="Views\Vendor\ApplyVendor.cshtml" />
     <Content Include="Views\Product\_Discontinued.cshtml" />
+    <Content Include="Views\Hotel\Index.cshtml" />
+    <Content Include="Themes\Weixin\Views\Shared\_WxLayout.cshtml" />
+    <Content Include="Themes\Weixin\Views\Web.config" />
+    <Content Include="Themes\Weixin\theme.config" />
+    <Content Include="Themes\Weixin\Views\Hotel\Index.cshtml" />
+    <Content Include="Themes\Weixin\Views\_ViewStart.cshtml" />
+    <Content Include="Themes\Weixin\Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Roxy_Fileman\tmp\" />

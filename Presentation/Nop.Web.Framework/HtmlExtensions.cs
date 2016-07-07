@@ -381,7 +381,8 @@ namespace Nop.Web.Framework
                 months.AppendFormat("<option value='{0}'{1}>{2}</option>",
                                     i, 
                                     (selectedMonth.HasValue && selectedMonth.Value == i) ? " selected=\"selected\"" : null,
-                                    CultureInfo.CurrentUICulture.DateTimeFormat.GetMonthName(i));
+                                    CultureInfo.CurrentUICulture.DateTimeFormat.GetMonthName(i)
+                                    );
             }
 
 
