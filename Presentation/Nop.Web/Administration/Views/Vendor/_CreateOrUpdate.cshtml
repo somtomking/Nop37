@@ -1,4 +1,5 @@
-﻿@model VendorModel
+﻿@using Nop.Core.Domain.Vendors
+@model VendorModel
 @Html.ValidationSummary(false)
 @Html.HiddenFor(model => model.Id)
 
@@ -140,7 +141,16 @@
                 @Html.EditorFor(model => model.Email)
                 @Html.ValidationMessageFor(model => model.Email)
             </td>
-        </tr>       
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.NopLabelFor(model => model.VendorTypeId):
+            </td>
+            <td class="adminData">
+                @Html.DropDownListFor(model => model.VendorTypeId, ((VendorType)Model.VendorTypeId).ToSelectList())
+                @Html.ValidationMessageFor(model => model.VendorTypeId)
+            </td>
+        </tr>        
         @if (Model.Id > 0)
         {
             <tr>

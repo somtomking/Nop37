@@ -452,6 +452,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\Install\SqlServer.Indexes.sql" />
+    <Content Include="App_Data\Update\UpdateSql.sql" />
     <Content Include="Content\BBEditor\ed.js" />
     <Content Include="Content\BBEditor\images\bold.gif" />
     <Content Include="Content\BBEditor\images\code.gif" />
@@ -1980,6 +1981,19 @@
     <Content Include="Scripts\public.onepagecheckout.js" />
     <Content Include="Scripts\public.common.js" />
     <Content Include="Themes\DefaultClean\Content\css\print.css" />
+    <Content Include="Themes\Weixin\Content\jqweui\css\custom.css" />
+    <Content Include="Themes\Weixin\Content\jqweui\css\jquery-weui.css" />
+    <Content Include="Themes\Weixin\Content\jqweui\css\jquery-weui.min.css" />
+    <Content Include="Themes\Weixin\Content\jqweui\js\city-picker.js" />
+    <Content Include="Themes\Weixin\Content\jqweui\js\city-picker.min.js" />
+    <Content Include="Themes\Weixin\Content\jqweui\js\jquery-weui.js" />
+    <Content Include="Themes\Weixin\Content\jqweui\js\jquery-weui.min.js" />
+    <Content Include="Themes\Weixin\Content\jqweui\js\swiper.js" />
+    <Content Include="Themes\Weixin\Content\jqweui\js\swiper.min.js" />
+    <Content Include="Themes\Weixin\Content\jqweui\lib\jquery-2.1.4.js" />
+    <Content Include="Themes\Weixin\Content\jqweui\lib\weui.css" />
+    <Content Include="Themes\Weixin\Content\jqweui\lib\weui.min.css" />
+    <Content Include="Themes\Weixin\Content\jqweui\lib\zepto.js" />
     <Content Include="Themes\Weixin\Content\weui\example\example.css" />
     <Content Include="Themes\Weixin\Content\weui\example\example.js" />
     <Content Include="Themes\Weixin\Content\weui\example\images\icon_nav_actionSheet.png" />
@@ -2084,6 +2098,7 @@
   <ItemGroup>
     <Folder Include="Content\Roxy_Fileman\tmp\" />
     <Folder Include="Plugins\bin\" />
+    <Folder Include="Themes\Weixin\Content\jqweui\demos\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Nop.Core\Nop.Core.csproj">

@@ -3,13 +3,12 @@
 @{
     var displayMiniProfiler = EngineContext.Current.Resolve<Nop.Core.Domain.StoreInformationSettings>().DisplayMiniProfilerInPublicStore;
 
-    Html.AppendScriptParts("~/Scripts/public.ajaxcart.js");
-    Html.AppendScriptParts("~/Scripts/public.common.js");
-    Html.AppendScriptParts("~/Scripts/jquery-migrate-1.2.1.min.js");
-    Html.AppendScriptParts("~/Scripts/jquery-ui-1.10.3.custom.min.js");
-    Html.AppendScriptParts("~/Scripts/jquery.validate.unobtrusive.min.js");
-    Html.AppendScriptParts("~/Scripts/jquery.validate.min.js");
-    Html.AppendScriptParts("~/Scripts/jquery-1.10.2.min.js");
+    Html.AddCssFileParts("~/Themes/weixin/Content/jqweui/lib/weui.css");
+    Html.AddCssFileParts("~/Themes/weixin/Content/jqweui/css/jquery-weui.css");
+    Html.AddCssFileParts("~/Themes/weixin/Content/jqweui/css/custom.css");
+
+    Html.AppendScriptParts(ResourceLocation.Head,"~/Themes/weixin/Content/jqweui/lib/jquery-2.1.4.js");
+    Html.AppendScriptParts(ResourceLocation.Foot,"~/Themes/weixin/Content/jqweui/js/jquery-weui.js");
 
     //X-UA-Compatible tag
     var commonSettings = EngineContext.Current.Resolve<CommonSettings>();
@@ -30,13 +29,15 @@
 
     @Html.NopCssFiles(this.Url, ResourceLocation.Head)
     @Html.NopScripts(this.Url, ResourceLocation.Head)
+
     @Html.NopCanonicalUrls()
+
     @if (displayMiniProfiler)
     {
         @StackExchange.Profiling.MiniProfiler.RenderIncludes()
     }
 </head>
-<body>
+<body ontouchstart>
     @RenderBody()
     @Html.NopCssFiles(this.Url, ResourceLocation.Foot)
     @Html.NopScripts(this.Url, ResourceLocation.Foot)

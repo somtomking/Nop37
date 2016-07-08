@@ -25,7 +25,7 @@ namespace Nop.Core.Domain.Vendors
         /// Gets or sets the description
         /// </summary>
         public string Description { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the picture identifier
         /// </summary>
@@ -91,5 +91,19 @@ namespace Nop.Core.Domain.Vendors
             protected set { _vendorNotes = value; }
         }
 
+
+
+        #region Ext
+        /// <summary>
+        /// 供应商类型
+        /// </summary>
+        public int VendorTypeId { get; set; }
+
+        public VendorType VendorType
+        {
+            get { return (VendorType)VendorTypeId; }
+            set { this.VendorTypeId = (int)value; }
+        }
+        #endregion
     }
 }

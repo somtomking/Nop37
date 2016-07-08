@@ -49,7 +49,7 @@ namespace Nop.Admin.Models.Vendors
 
         [NopResourceDisplayName("Admin.Vendors.Fields.DisplayOrder")]
         public int DisplayOrder { get; set; }
-        
+
 
         [NopResourceDisplayName("Admin.Vendors.Fields.MetaKeywords")]
         [AllowHtml]
@@ -89,7 +89,11 @@ namespace Nop.Admin.Models.Vendors
         public string AddVendorNoteMessage { get; set; }
 
 
-
+        #region Ext
+        [NopResourceDisplayName("Admin.Vendors.VendorNotes.Fields.VendorType")]
+        public int VendorTypeId { get; set; }
+        
+        #endregion
 
         #region Nested classes
 

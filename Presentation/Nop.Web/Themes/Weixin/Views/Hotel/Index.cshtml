@@ -2,11 +2,36 @@
 @using Nop.Web.Models.Hotel
 @model HotelSearchModel
 @{
-
     Html.AddTitleParts("酒店预订");
-
-    
-
-
 }
- 
+@using (Html.BeginForm())
+{
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label for="name" class="weui_label ">入住日期</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+
+                @Html.TextBoxFor(m => m.From, "{0:yyyy-MM-dd}", new { @class = "weui_input" })
+
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label for="name" class="weui_label">离店日期</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                @Html.TextBoxFor(m => m.To, "{0:yyyy-MM-dd}", new { @class = "weui_input" })
+            </div>
+        </div>
+        <div class="weui_cell ">
+            <button class="weui_btn  weui_btn_primary " type="submit">订酒店 </button>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#@Html.FieldIdFor(m=>m.From)").calendar({ inputReadOnly: true });
+        $("#@Html.FieldIdFor(m=>m.To)").calendar({ inputReadOnly: true });
+    });
+
+</script>
