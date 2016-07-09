@@ -2094,6 +2094,21 @@
     <Content Include="Themes\Weixin\Views\Hotel\Index.cshtml" />
     <Content Include="Themes\Weixin\Views\_ViewStart.cshtml" />
     <Content Include="Themes\Weixin\Views\Home\Index.cshtml" />
+    <Content Include="Themes\Weixin\Views\Checkout\BillingAddress.cshtml" />
+    <Content Include="Themes\Weixin\Views\Checkout\CheckoutProgress.cshtml" />
+    <Content Include="Themes\Weixin\Views\Checkout\Completed.cshtml" />
+    <Content Include="Themes\Weixin\Views\Checkout\Confirm.cshtml" />
+    <Content Include="Themes\Weixin\Views\Checkout\OnePageCheckout.cshtml" />
+    <Content Include="Themes\Weixin\Views\Checkout\OpcBillingAddress.cshtml" />
+    <Content Include="Themes\Weixin\Views\Checkout\OpcConfirmOrder.cshtml" />
+    <Content Include="Themes\Weixin\Views\Checkout\OpcPaymentInfo.cshtml" />
+    <Content Include="Themes\Weixin\Views\Checkout\OpcPaymentMethods.cshtml" />
+    <Content Include="Themes\Weixin\Views\Checkout\OpcShippingAddress.cshtml" />
+    <Content Include="Themes\Weixin\Views\Checkout\OpcShippingMethods.cshtml" />
+    <Content Include="Themes\Weixin\Views\Checkout\PaymentInfo.cshtml" />
+    <Content Include="Themes\Weixin\Views\Checkout\PaymentMethod.cshtml" />
+    <Content Include="Themes\Weixin\Views\Checkout\ShippingAddress.cshtml" />
+    <Content Include="Themes\Weixin\Views\Checkout\ShippingMethod.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Roxy_Fileman\tmp\" />

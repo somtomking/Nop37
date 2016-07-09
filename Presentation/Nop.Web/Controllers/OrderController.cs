@@ -182,7 +182,7 @@ namespace Nop.Web.Controllers
             model.IsReOrderAllowed = _orderSettings.IsReOrderAllowed;
             model.IsReturnRequestAllowed = _orderProcessingService.IsReturnRequestAllowed(order);
             model.PdfInvoiceDisabled = _pdfSettings.DisablePdfInvoicesForPendingOrders && order.OrderStatus == OrderStatus.Pending;
-
+            model.DisableBillingAddress = _orderSettings.DisableBillingAddressCheckoutStep;//禁用账单地址
             //shipping info
             model.ShippingStatus = order.ShippingStatus.GetLocalizedEnum(_localizationService, _workContext);
             if (order.ShippingStatus != ShippingStatus.ShippingNotRequired)

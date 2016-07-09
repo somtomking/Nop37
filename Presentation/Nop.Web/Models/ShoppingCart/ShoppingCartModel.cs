@@ -49,7 +49,7 @@ namespace Nop.Web.Models.ShoppingCart
         public IList<string> ButtonPaymentMethodControllerNames { get; set; }
         public IList<RouteValueDictionary> ButtonPaymentMethodRouteValues { get; set; }
 
-		#region Nested Classes
+        #region Nested Classes
 
         public partial class ShoppingCartItemModel : BaseNopEntityModel
         {
@@ -61,7 +61,7 @@ namespace Nop.Web.Models.ShoppingCart
             }
             public string Sku { get; set; }
 
-            public PictureModel Picture {get;set;}
+            public PictureModel Picture { get; set; }
 
             public int ProductId { get; set; }
 
@@ -77,7 +77,7 @@ namespace Nop.Web.Models.ShoppingCart
 
             public int Quantity { get; set; }
             public List<SelectListItem> AllowedQuantities { get; set; }
-            
+
             public string AttributeInfo { get; set; }
 
             public string RecurringInfo { get; set; }
@@ -140,7 +140,7 @@ namespace Nop.Web.Models.ShoppingCart
             public bool IsPreSelected { get; set; }
         }
 
-        public partial class DiscountBoxModel: BaseNopModel
+        public partial class DiscountBoxModel : BaseNopModel
         {
             public bool Display { get; set; }
             public string Message { get; set; }
@@ -161,13 +161,15 @@ namespace Nop.Web.Models.ShoppingCart
             {
                 this.BillingAddress = new AddressModel();
                 this.ShippingAddress = new AddressModel();
-                this.CustomValues= new Dictionary<string, object>();
+                this.CustomValues = new Dictionary<string, object>();
             }
             public bool Display { get; set; }
 
             public AddressModel BillingAddress { get; set; }
 
             public bool IsShippable { get; set; }
+            public bool DisableBillingAddress { get; set; }
+
             public AddressModel ShippingAddress { get; set; }
             public bool SelectedPickUpInStore { get; set; }
             public string ShippingMethod { get; set; }
@@ -176,6 +178,6 @@ namespace Nop.Web.Models.ShoppingCart
 
             public Dictionary<string, object> CustomValues { get; set; }
         }
-		#endregion
+        #endregion
     }
 }

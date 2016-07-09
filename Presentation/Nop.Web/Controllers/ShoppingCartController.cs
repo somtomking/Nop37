@@ -591,14 +591,22 @@ namespace Nop.Web.Controllers
             {
                 model.OrderReviewData.Display = true;
 
-                //billing info
-                var billingAddress = _workContext.CurrentCustomer.BillingAddress;
-                if (billingAddress != null)
-                    model.OrderReviewData.BillingAddress.PrepareModel(
-                        address: billingAddress, 
-                        excludeProperties: false,
-                        addressSettings: _addressSettings,
-                        addressAttributeFormatter: _addressAttributeFormatter);
+                if (_orderSettings.DisableBillingAddressCheckoutStep)//代码保留原来，加入逻辑：如果禁用了账单地址，就不显示账单地址
+                {
+                    model.OrderReviewData.DisableBillingAddress = true;
+                }
+                else
+                {
+                    //billing info
+                    var billingAddress = _workContext.CurrentCustomer.BillingAddress;
+                    if (billingAddress != null)
+                        model.OrderReviewData.BillingAddress.PrepareModel(
+                            address: billingAddress,
+                            excludeProperties: false,
+                            addressSettings: _addressSettings,
+                            addressAttributeFormatter: _addressAttributeFormatter);
+                }
+               
                
                 //shipping info
                 if (cart.RequiresShipping())

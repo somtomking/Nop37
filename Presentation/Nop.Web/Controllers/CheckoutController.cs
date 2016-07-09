@@ -61,6 +61,8 @@ namespace Nop.Web.Controllers
         private readonly IAddressAttributeParser _addressAttributeParser;
         private readonly IAddressAttributeService _addressAttributeService;
         private readonly IAddressAttributeFormatter _addressAttributeFormatter;
+        private readonly IAddressService _addressService;//ext
+
 
 
 
@@ -103,7 +105,9 @@ namespace Nop.Web.Controllers
             RewardPointsSettings rewardPointsSettings,
             PaymentSettings paymentSettings,
             ShippingSettings shippingSettings,
-            AddressSettings addressSettings)
+            AddressSettings addressSettings,
+            IAddressService addressService
+            )
         {
             this._workContext = workContext;
             this._storeContext = storeContext;
@@ -136,6 +140,8 @@ namespace Nop.Web.Controllers
             this._paymentSettings = paymentSettings;
             this._shippingSettings = shippingSettings;
             this._addressSettings = addressSettings;
+
+            this._addressService = addressService;
         }
 
         #endregion
@@ -1362,11 +1368,7 @@ namespace Nop.Web.Controllers
             var billingAddressModel = PrepareBillingAddressModel(prePopulateNewAddressWithCustomerFields: true);
             return PartialView("OpcBillingAddress", billingAddressModel);
         }
-        /// <summary>
-        /// 保存用户账单地址
-        /// </summary>
-        /// <param name="form"></param>
-        /// <returns></returns>
+
         [ValidateInput(false)]
         public ActionResult OpcSaveBilling(FormCollection form)
         {
@@ -1395,7 +1397,17 @@ namespace Nop.Web.Controllers
                     var address = _workContext.CurrentCustomer.Addresses.FirstOrDefault(a => a.Id == billingAddressId);
                     if (address == null)
                         throw new Exception("Address can't be loaded");
-                    
+
+                    _workContext.CurrentCustomer.BillingAddress = address;
+                    _customerService.UpdateCustomer(_workContext.CurrentCustomer);
+                }
+                else if (_orderSettings.DisableBillingAddressCheckoutStep)
+                {
+                    var address = _workContext.CurrentCustomer.Addresses.FirstOrDefault();
+                    if (address == null)
+                    {
+                        address = _addressService.GetAddressById(1);
+                    }
                     _workContext.CurrentCustomer.BillingAddress = address;
                     _customerService.UpdateCustomer(_workContext.CurrentCustomer);
                 }
@@ -1432,7 +1444,7 @@ namespace Nop.Web.Controllers
                             wrong_billing_address = true,
                         });
                     }
-
+                    //找是否有相同的地址
                     //try to find an address with the same values (don't duplicate records)
                     var address = _workContext.CurrentCustomer.Addresses.ToList().FindAddress(
                         model.NewAddress.FirstName, model.NewAddress.LastName, model.NewAddress.PhoneNumber,
