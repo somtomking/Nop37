@@ -243,3 +243,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/Presentation/Nop.Web/Content/Images/Thumbs
