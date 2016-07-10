@@ -30,5 +30,7 @@ namespace Nop.Core.Domain.Shipping
         /// Gets the shipment
         /// </summary>
         public virtual Shipment Shipment { get; set; }
+      
+
     }
 }

@@ -64,13 +64,13 @@ namespace Nop.Services.Orders
         /// <param name="attributesXml">Attributes in XML format</param>
         /// <param name="ignoreNonCombinableAttributes">A value indicating whether we should ignore non-combinable attributes</param>
         /// <returns>Warnings</returns>
-        IList<string> GetShoppingCartItemAttributeWarnings(Customer customer, 
+        IList<string> GetShoppingCartItemAttributeWarnings(Customer customer,
             ShoppingCartType shoppingCartType,
             Product product,
             int quantity = 1,
             string attributesXml = "",
             bool ignoreNonCombinableAttributes = false);
-        
+
         /// <summary>
         /// Validates shopping cart item (gift card)
         /// </summary>
@@ -165,10 +165,10 @@ namespace Nop.Services.Orders
         /// <returns>Warnings</returns>
         IList<string> AddToCart(Customer customer, Product product,
             ShoppingCartType shoppingCartType, int storeId, string attributesXml = null,
-            decimal customerEnteredPrice = decimal.Zero, 
+            decimal customerEnteredPrice = decimal.Zero,
             DateTime? rentalStartDate = null, DateTime? rentalEndDate = null,
-            int quantity = 1, bool automaticallyAddRequiredProductsIfEnabled = true);
-        
+            int quantity = 1, bool automaticallyAddRequiredProductsIfEnabled = true, bool isBuyNow = false);
+
         /// <summary>
         /// Updates the shopping cart item
         /// </summary>
@@ -185,8 +185,8 @@ namespace Nop.Services.Orders
             int shoppingCartItemId, string attributesXml,
             decimal customerEnteredPrice,
             DateTime? rentalStartDate = null, DateTime? rentalEndDate = null,
-            int quantity = 1, bool resetCheckoutData = true);
-        
+            int quantity = 1, bool resetCheckoutData = true, bool isSelected = false);
+
         /// <summary>
         /// Migrate shopping cart
         /// </summary>
@@ -194,5 +194,8 @@ namespace Nop.Services.Orders
         /// <param name="toCustomer">To customer</param>
         /// <param name="includeCouponCodes">A value indicating whether to coupon codes (discount and gift card) should be also re-applied</param>
         void MigrateShoppingCart(Customer fromCustomer, Customer toCustomer, bool includeCouponCodes);
+
+
+        void SetShoppingCartItemSelectState(Customer customer, int shoppingCartItemId, bool resetCheckoutData, bool selected);
     }
 }

@@ -63,7 +63,13 @@ namespace Nop.Core.Domain.Orders
         /// Gets or sets the date and time of instance update
         /// </summary>
         public DateTime UpdatedOnUtc { get; set; }
-        
+
+        /// <summary>
+        /// 目前是用来实现立即购买的逻辑
+        /// 以后会支持用户在购物的时候，可以选择购物车的产品进行结算
+        /// （ext：2016-07-10）
+        /// </summary>
+        public bool IsSelected { get; set; }
         /// <summary>
         /// Gets the log type
         /// </summary>

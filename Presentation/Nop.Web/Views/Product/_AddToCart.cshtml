@@ -68,10 +68,44 @@
                             addToCartText = T("ShoppingCart.PreOrder").Text;
                         }
                     }
-                    <input type="button" id="add-to-cart-button-@Model.ProductId" class="button-1 add-to-cart-button" value="@addToCartText" data-productid="@Model.ProductId" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.ProductId, shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart })', '#product-details-form');return false;" />
+
+
+
+                    <input type="button" id="add-to-cart-button-@Model.ProductId" class="button-1 add-to-cart-button" value="@addToCartText" data-productid="@Model.ProductId" onclick="addProductToCart(this)" />
+
+                    if (Model.UpdatedShoppingCartItemId == 0)
+                    {
+                        <input type="button" id="add-buy-now-button-@Model.ProductId" class="button-1 add-to-cart-button " style="background-color:orangered" value="立即购买 " data-productid="@Model.ProductId" onclick="buyProductNow(this)" />
+                    }
+
+
+
+
                 }
             </div>
-        }
+                    }
         @Html.Widget("productdetails_add_info", Model.ProductId)
     </div>
-}
+
+
+    <script type="text/javascript">
+        function addProductToCart(addToCarBtn) {
+            AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.ProductId, shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart })', '#product-details-form');
+        }
+
+
+
+        function buyProductNow(buyNowBtn) {
+            AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.ProductId, shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart,buyNow=true })', '#product-details-form', buyProductNowSuccess);
+        }
+
+        function buyProductNowSuccess(response) {
+            if (response.success == true) {
+                window.location.href = response.checkoutUrl;
+            }
+            else {
+                alert(response.message);
+            }
+        }
+    </script>
+                    }

@@ -40,7 +40,7 @@ namespace Nop.Services.Orders
     public partial class OrderProcessingService : IOrderProcessingService
     {
         #region Fields
-        
+
         private readonly IOrderService _orderService;
         private readonly IWebHelper _webHelper;
         private readonly ILocalizationService _localizationService;
@@ -222,12 +222,12 @@ namespace Nop.Services.Orders
             public Customer Customer { get; set; }
             public Language CustomerLanguage { get; set; }
             public int AffiliateId { get; set; }
-            public TaxDisplayType CustomerTaxDisplayType {get; set; }
+            public TaxDisplayType CustomerTaxDisplayType { get; set; }
             public string CustomerCurrencyCode { get; set; }
             public decimal CustomerCurrencyRate { get; set; }
 
             public Address BillingAddress { get; set; }
-            public Address ShippingAddress {get; set; }
+            public Address ShippingAddress { get; set; }
             public ShippingStatus ShippingStatus { get; set; }
             public string ShippingMethodName { get; set; }
             public string ShippingRateComputationMethodSystemName { get; set; }
@@ -250,11 +250,11 @@ namespace Nop.Services.Orders
             public decimal OrderSubTotalDiscountExclTax { get; set; }
             public decimal OrderShippingTotalInclTax { get; set; }
             public decimal OrderShippingTotalExclTax { get; set; }
-            public decimal PaymentAdditionalFeeInclTax {get; set; }
+            public decimal PaymentAdditionalFeeInclTax { get; set; }
             public decimal PaymentAdditionalFeeExclTax { get; set; }
-            public decimal OrderTaxTotal  {get; set; }
-            public string VatNumber {get; set; }
-            public string TaxRates {get; set; }
+            public decimal OrderTaxTotal { get; set; }
+            public string VatNumber { get; set; }
+            public string TaxRates { get; set; }
             public decimal OrderDiscountAmount { get; set; }
             public int RedeemedRewardPoints { get; set; }
             public decimal RedeemedRewardPointsAmount { get; set; }
@@ -367,10 +367,7 @@ namespace Nop.Services.Orders
             if (!processPaymentRequest.IsRecurringPayment)
             {
                 //load shopping cart
-                details.Cart = details.Customer.ShoppingCartItems
-                    .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                    .LimitPerStore(processPaymentRequest.StoreId)
-                    .ToList();
+                details.Cart = details.Customer.GetCheckoutShoppingCartItems(processPaymentRequest.StoreId).ToList();
 
                 if (details.Cart.Count == 0)
                     throw new NopException("Cart is empty");
@@ -439,7 +436,7 @@ namespace Nop.Services.Orders
             {
                 details.CustomerTaxDisplayType = details.InitialOrder.CustomerTaxDisplayType;
             }
-            
+
             //sub total
             if (!processPaymentRequest.IsRecurringPayment)
             {
@@ -610,7 +607,7 @@ namespace Nop.Services.Orders
                 List<AppliedGiftCard> appliedGiftCards;
                 Discount orderAppliedDiscount;
                 decimal orderDiscountAmount;
-                int redeemedRewardPoints ;
+                int redeemedRewardPoints;
                 decimal redeemedRewardPointsAmount;
 
                 var orderTotal = _orderTotalCalculationService.GetShoppingCartTotal(details.Cart,
@@ -633,7 +630,7 @@ namespace Nop.Services.Orders
             {
                 details.OrderDiscountAmount = details.InitialOrder.OrderDiscount;
                 details.OrderTotal = details.InitialOrder.OrderTotal;
-            } 
+            }
             processPaymentRequest.OrderTotal = details.OrderTotal;
 
             //recurring or standard shopping cart?
@@ -728,7 +725,7 @@ namespace Nop.Services.Orders
         /// <param name="activate">A value indicating whether to activate gift cards; true - activate, false - deactivate</param>
         protected virtual void SetActivatedValueForPurchasedGiftCards(Order order, bool activate)
         {
-            var giftCards = _giftCardService.GetAllGiftCards(purchasedWithOrderId: order.Id, 
+            var giftCards = _giftCardService.GetAllGiftCards(purchasedWithOrderId: order.Id,
                 isGiftCardActivated: !activate);
             foreach (var gc in giftCards)
             {
@@ -786,11 +783,11 @@ namespace Nop.Services.Orders
 
             //order notes, notifications
             order.OrderNotes.Add(new OrderNote
-                {
-                    Note = string.Format("Order status has been changed to {0}", os.ToString()),
-                    DisplayToCustomer = false,
-                    CreatedOnUtc = DateTime.UtcNow
-                });
+            {
+                Note = string.Format("Order status has been changed to {0}", os.ToString()),
+                DisplayToCustomer = false,
+                CreatedOnUtc = DateTime.UtcNow
+            });
             _orderService.UpdateOrder(order);
 
 
@@ -922,7 +919,7 @@ namespace Nop.Services.Orders
                 {
                     if (attributeValue.AttributeValueType == AttributeValueType.AssociatedToProduct)
                     {
-                       purchasedProductIds.Add(attributeValue.AssociatedProductId);
+                        purchasedProductIds.Add(attributeValue.AssociatedProductId);
                     }
                 }
             }
@@ -1116,7 +1113,7 @@ namespace Nop.Services.Orders
                                 processPaymentRequest.CreditCardExpireMonth = details.InitialOrder.AllowStoringCreditCardNumber ? Convert.ToInt32(_encryptionService.DecryptText(details.InitialOrder.CardExpirationMonth)) : 0;
                                 processPaymentRequest.CreditCardExpireYear = details.InitialOrder.AllowStoringCreditCardNumber ? Convert.ToInt32(_encryptionService.DecryptText(details.InitialOrder.CardExpirationYear)) : 0;
                             }
-                            catch {}
+                            catch { }
 
                             var recurringPaymentType = _paymentService.GetRecurringPaymentType(processPaymentRequest.PaymentMethodSystemName);
                             switch (recurringPaymentType)
@@ -1548,7 +1545,7 @@ namespace Nop.Services.Orders
                             _localizationService.GetResource("ActivityLog.PublicStore.PlaceOrder"),
                             order.Id);
                     }
-                    
+
                     //raise event       
                     _eventPublisher.Publish(new OrderPlacedEvent(order));
 
@@ -1650,7 +1647,7 @@ namespace Nop.Services.Orders
                 CreatedOnUtc = DateTime.UtcNow
             });
             _orderService.UpdateOrder(order);
-            
+
             //now delete an order
             _orderService.DeleteOrder(order);
         }
@@ -1766,7 +1763,7 @@ namespace Nop.Services.Orders
 
                     //notify a store owner
                     _workflowMessageService
-                        .SendRecurringPaymentCancelledStoreOwnerNotification(recurringPayment, 
+                        .SendRecurringPaymentCancelledStoreOwnerNotification(recurringPayment,
                         _localizationSettings.DefaultAdminLanguageId);
                 }
             }
@@ -1879,11 +1876,11 @@ namespace Nop.Services.Orders
 
             //add a note
             order.OrderNotes.Add(new OrderNote
-                {
-                    Note = string.Format("Shipment# {0} has been sent", shipment.Id),
-                    DisplayToCustomer = false,
-                    CreatedOnUtc = DateTime.UtcNow
-                });
+            {
+                Note = string.Format("Shipment# {0} has been sent", shipment.Id),
+                DisplayToCustomer = false,
+                CreatedOnUtc = DateTime.UtcNow
+            });
             _orderService.UpdateOrder(order);
 
             if (notifyCustomer)
@@ -2155,7 +2152,7 @@ namespace Nop.Services.Orders
                     _orderService.UpdateOrder(order);
 
                     CheckOrderStatus(order);
-     
+
                     if (order.PaymentStatus == PaymentStatus.Paid)
                     {
                         ProcessOrderPaid(order);
@@ -2243,7 +2240,7 @@ namespace Nop.Services.Orders
             _orderService.UpdateOrder(order);
 
             CheckOrderStatus(order);
-   
+
             if (order.PaymentStatus == PaymentStatus.Paid)
             {
                 ProcessOrderPaid(order);
@@ -2275,7 +2272,7 @@ namespace Nop.Services.Orders
 
             return false;
         }
-        
+
         /// <summary>
         /// Refunds an order (from admin panel)
         /// </summary>
@@ -2649,7 +2646,7 @@ namespace Nop.Services.Orders
         {
             if (order == null)
                 throw new ArgumentNullException("order");
-            
+
             if (!CanPartiallyRefundOffline(order, amountToRefund))
                 throw new NopException("You can't partially refund (offline) this order");
 
@@ -2865,7 +2862,7 @@ namespace Nop.Services.Orders
             foreach (var orderItem in order.OrderItems)
             {
                 _shoppingCartService.AddToCart(order.Customer, orderItem.Product,
-                    ShoppingCartType.ShoppingCart, order.StoreId, 
+                    ShoppingCartType.ShoppingCart, order.StoreId,
                     orderItem.AttributesXml, orderItem.UnitPriceExclTax,
                     orderItem.RentalStartDateUtc, orderItem.RentalEndDateUtc,
                     orderItem.Quantity, false);
@@ -2875,7 +2872,7 @@ namespace Nop.Services.Orders
             //comment the code below if you want to disable this functionality
             _genericAttributeService.SaveAttribute(order.Customer, SystemCustomerAttributeNames.CheckoutAttributes, order.CheckoutAttributesXml, order.StoreId);
         }
-        
+
         /// <summary>
         /// Check whether return request is allowed
         /// </summary>
@@ -2898,7 +2895,7 @@ namespace Nop.Services.Orders
             var daysPassed = (DateTime.UtcNow - order.CreatedOnUtc).TotalDays;
             return (daysPassed - _orderSettings.NumberOfDaysReturnRequestAvailable) < 0;
         }
-        
+
 
 
         /// <summary>

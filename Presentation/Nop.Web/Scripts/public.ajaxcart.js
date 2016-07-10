@@ -41,7 +41,7 @@ var AjaxCart = {
     },
 
     //add a product to the cart/wishlist from the product details page
-    addproducttocart_details: function (urladd, formselector) {
+    addproducttocart_details: function (urladd, formselector, successHandler) {
         if (this.loadWaiting != false) {
             return;
         }
@@ -52,7 +52,14 @@ var AjaxCart = {
             url: urladd,
             data: $(formselector).serialize(),
             type: 'post',
-            success: this.success_process,
+            success: function (response) {
+                if (successHandler != null && typeof (successHandler) != 'undefined') {
+                    successHandler(response)
+                } else {
+                    AjaxCart.success_process(response);
+                }
+
+            },
             complete: this.resetLoadWaiting,
             error: this.ajaxFailure
         });

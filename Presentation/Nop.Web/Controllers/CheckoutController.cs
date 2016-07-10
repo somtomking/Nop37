@@ -459,10 +459,7 @@ namespace Nop.Web.Controllers
 
         public ActionResult Index()
         {
-            var cart = _workContext.CurrentCustomer.ShoppingCartItems
-                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                .LimitPerStore(_storeContext.CurrentStore.Id)
-                .ToList();
+            var cart = GetCheckoutCartItems();
             if (cart.Count == 0)
                 return RedirectToRoute("ShoppingCart");
 
@@ -1341,10 +1338,7 @@ namespace Nop.Web.Controllers
         public ActionResult OnePageCheckout()
         {
             //validation
-            var cart = _workContext.CurrentCustomer.ShoppingCartItems
-                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                .LimitPerStore(_storeContext.CurrentStore.Id)
-                .ToList();
+            var cart =GetCheckoutCartItems();
             if (cart.Count == 0)
                 return RedirectToRoute("ShoppingCart");
 
@@ -1375,10 +1369,7 @@ namespace Nop.Web.Controllers
             try
             {
                 //validation
-                var cart = _workContext.CurrentCustomer.ShoppingCartItems
-                    .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                    .LimitPerStore(_storeContext.CurrentStore.Id)
-                    .ToList();
+                var cart = GetCheckoutCartItems();
                 if (cart.Count == 0)
                     throw new Exception("Your cart is empty");
 
@@ -1507,10 +1498,7 @@ namespace Nop.Web.Controllers
             try
             {
                 //validation
-                var cart = _workContext.CurrentCustomer.ShoppingCartItems
-                    .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                    .LimitPerStore(_storeContext.CurrentStore.Id)
-                    .ToList();
+                var cart = GetCheckoutCartItems();
                 if (cart.Count == 0)
                     throw new Exception("Your cart is empty");
 
@@ -1678,10 +1666,7 @@ namespace Nop.Web.Controllers
             try
             {
                 //validation
-                var cart = _workContext.CurrentCustomer.ShoppingCartItems
-                    .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                    .LimitPerStore(_storeContext.CurrentStore.Id)
-                    .ToList();
+                var cart = GetCheckoutCartItems();
                 if (cart.Count == 0)
                     throw new Exception("Your cart is empty");
 
@@ -1746,10 +1731,7 @@ namespace Nop.Web.Controllers
             try
             {
                 //validation
-                var cart = _workContext.CurrentCustomer.ShoppingCartItems
-                    .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                    .LimitPerStore(_storeContext.CurrentStore.Id)
-                    .ToList();
+                var cart = GetCheckoutCartItems();
                 if (cart.Count == 0)
                     throw new Exception("Your cart is empty");
 
@@ -1821,10 +1803,7 @@ namespace Nop.Web.Controllers
             try
             {
                 //validation
-                var cart = _workContext.CurrentCustomer.ShoppingCartItems
-                    .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                    .LimitPerStore(_storeContext.CurrentStore.Id)
-                    .ToList();
+                var cart = GetCheckoutCartItems();
                 if (cart.Count == 0)
                     throw new Exception("Your cart is empty");
 
@@ -1892,10 +1871,7 @@ namespace Nop.Web.Controllers
             try
             {
                 //validation
-                var cart = _workContext.CurrentCustomer.ShoppingCartItems
-                    .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
-                    .LimitPerStore(_storeContext.CurrentStore.Id)
-                    .ToList();
+                var cart = GetCheckoutCartItems();
                 if (cart.Count == 0)
                     throw new Exception("Your cart is empty");
 
@@ -2036,6 +2012,18 @@ namespace Nop.Web.Controllers
                 _logger.Warning(exc.Message, exc, _workContext.CurrentCustomer);
                 return Content(exc.Message);
             }
+        }
+
+
+        private List<ShoppingCartItem> GetCheckoutCartItems()
+        {
+            
+            var cart = _workContext.CurrentCustomer.ShoppingCartItems
+                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart && sci.IsSelected)
+                .LimitPerStore(_storeContext.CurrentStore.Id)
+                .ToList();
+
+            return cart;
         }
 
         #endregion

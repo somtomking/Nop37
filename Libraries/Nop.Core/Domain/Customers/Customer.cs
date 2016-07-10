@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Nop.Core.Domain.Common;
 using Nop.Core.Domain.Orders;
-
+using System.Linq;
 namespace Nop.Core.Domain.Customers
 {
     /// <summary>
@@ -129,7 +129,7 @@ namespace Nop.Core.Domain.Customers
         /// Gets or sets the date and time of last activity
         /// </summary>
         public DateTime LastActivityDateUtc { get; set; }
-        
+
         #region Navigation properties
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace Nop.Core.Domain.Customers
         public virtual ICollection<ShoppingCartItem> ShoppingCartItems
         {
             get { return _shoppingCartItems ?? (_shoppingCartItems = new List<ShoppingCartItem>()); }
-            protected set { _shoppingCartItems = value; }            
+            protected set { _shoppingCartItems = value; }
         }
 
         /// <summary>
@@ -165,9 +165,9 @@ namespace Nop.Core.Domain.Customers
         public virtual ICollection<ReturnRequest> ReturnRequests
         {
             get { return _returnRequests ?? (_returnRequests = new List<ReturnRequest>()); }
-            protected set { _returnRequests = value; }            
+            protected set { _returnRequests = value; }
         }
-        
+
         /// <summary>
         /// Default billing address
         /// </summary>
@@ -184,9 +184,27 @@ namespace Nop.Core.Domain.Customers
         public virtual ICollection<Address> Addresses
         {
             get { return _addresses ?? (_addresses = new List<Address>()); }
-            protected set { _addresses = value; }            
+            protected set { _addresses = value; }
         }
-        
+
+        /// <summary>
+        /// 获取用户可结算的订单
+        /// </summary>
+        /// <param name="storeId"></param>
+        /// <returns></returns>
+        public virtual IEnumerable<ShoppingCartItem> GetCheckoutShoppingCartItems(int storeId)
+        {
+            return this.ShoppingCartItems.Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart && sci.IsSelected && sci.StoreId == storeId);
+        }
+        /// <summary>
+        /// 获取用户的购物车
+        /// </summary>
+        /// <param name="storeId"></param>
+        /// <returns></returns>
+        public virtual IEnumerable<ShoppingCartItem> GetShoppingCartItems(int storeId)
+        {
+            return this.ShoppingCartItems.Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart &&  sci.StoreId == storeId);
+        }
         #endregion
     }
 }
